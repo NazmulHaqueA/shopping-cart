@@ -12,7 +12,7 @@
 
 <body>
 
-   <section>
+   <section id="invoice-area">
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
@@ -79,11 +79,50 @@
                </div>
 
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button type="button" class="btn btn-success check-out" id="checkoutBtn">Check Out</button>
                </div>
 
             </div>
          </div>
+      </div>
+   </section>
+
+   <!-- after submitted this section will show -->
+   <section id="checked-out">
+      <div class="text-center py-5">
+         <h3>Successfully Submitted!</h3>
+      </div>
+      <div class="summary">
+         <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">iPhone 11 128GB Black</th>
+                <th scope="col">iPhone 11 Silicone Case - Black</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><span id="sumPhone">1</span></th>
+                <td><span id="sumCase">1</span></td>
+              </tr>
+              <tr>      
+                <td><span id="sumPhonePrice">1219</span></td>
+                <td><span id="sumCasePrice">59</span></td>
+              </tr>
+              <tr>
+                <td>Sub-total</td>
+                <td id="sumSubTotal"> 1,278</td>
+              </tr>
+              <tr>
+               <td>Tax</td>
+               <td id="sumTaxAdded">0</td>
+             </tr>
+             <tr>
+               <td>Grand Total</td>
+               <td id="sumGrandTotal">1,278</td>
+             </tr>
+            </tbody>
+          </table>
       </div>
    </section>
 
@@ -100,7 +139,7 @@
    const casePrice = parseInt(document.getElementById("casePrice").innerText);
     var subTotal = parseInt(document.getElementById("subTotal").innerText);
     var taxAdded = parseInt(document.getElementById("taxAdded").innerText);
-    var taxAdded = parseInt(document.getElementById("grandTotal").innerText);
+    var grandTotal = parseInt(document.getElementById("grandTotal").innerText);
 
 //buttons : phone + - 
    const plusBtnPhone = document.getElementById("plusBtnPhone");
@@ -115,6 +154,7 @@
    plusBtnPhone.addEventListener("click",function(){
       totalPhone++; 
       priceCounterPhone("noOfPhone","phonePrice");
+      priceCounterPhone("sumPhone","sumPhonePrice");
       billAmount();
    });
 
@@ -125,6 +165,7 @@
       else{
          totalPhone--;
          priceCounterPhone("noOfPhone","phonePrice");
+         priceCounterPhone("sumPhone","sumPhonePrice");
          billAmount();
       }
    });
@@ -134,6 +175,7 @@
    plusBtnCase.addEventListener("click",function(){
       totalCase++;
       priceCounterCase("noOfCase","casePrice");
+      priceCounterCase("sumCase","sumCasePrice");
       billAmount();
 
    });
@@ -145,6 +187,7 @@
       else{
          totalCase--;
          priceCounterCase("noOfCase","casePrice");
+         priceCounterCase("sumCase","sumCasePrice");
          billAmount();
       }
    });
@@ -156,7 +199,7 @@
 
 // showcase the total cost of phone
    function priceCounterPhone(id1,id2){
-      document.getElementById(id1).value = totalPhone;
+      document.getElementById(id1).value = totalPhone;      
       var phoneCost = phonePrice*totalPhone;
       document.getElementById(id2).innerText=phoneCost;
       return phoneCost;
@@ -172,13 +215,53 @@
 //  this function is for the sub total, tax and grand total calculation
    function billAmount(){
          subTotal = priceCounterPhone("noOfPhone","phonePrice") + priceCounterCase("noOfCase","casePrice");
+         sumSubTotal = priceCounterPhone("sumPhone","sumPhonePrice") + priceCounterCase("sumCase","sumCasePrice");
+
          document.getElementById("subTotal").innerText =subTotal;
+         document.getElementById("sumSubTotal").innerText =sumSubTotal;
+
          var totalTax = subTotal * 0.075;
+         var sumTaxAdded = sumSubTotal * 0.075;
+
+
          document.getElementById("taxAdded").innerText =totalTax;
+         document.getElementById("sumTaxAdded").innerText =sumTaxAdded;
+
          var grandTotal = subTotal+totalTax;
+         var sumGrandTotal = sumSubTotal+sumTaxAdded;
+
          document.getElementById("grandTotal").innerText = grandTotal;
+         document.getElementById("sumGrandTotal").innerText = sumGrandTotal;
       
    }
+
+
+
+   // Checked out
+
+
+   const checkoutBtn = document.getElementById("checkoutBtn");
+
+   checkoutBtn.addEventListener("click",function(){
+
+        const checkoutBtn = document.getElementById("invoice-area"); 
+        checkoutBtn.style.display="none";
+    
+        const transArea = document.getElementById("checked-out");
+        transArea.style.display="block";       
+    })
+
+
+   var sumPhone = parseInt(document.getElementById("sumPhone").value);
+   var sumCase = parseInt(document.getElementById("sumCase").value);
+   const sumPhonePrice = parseInt(document.getElementById("sumPhonePrice").innerText);
+   const sumCasePrice = parseInt(document.getElementById("sumCasePrice").innerText);
+
+    var sumTaxAdded = parseInt(document.getElementById("sumTaxAdded").innerText);
+    var sumSubTotal = parseInt(document.getElementById("sumSubTotal").innerText);
+    var sumGrandTotal = parseInt(document.getElementById("sumGrandTotal").innerText);
+
+
 
 
    
