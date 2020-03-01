@@ -93,7 +93,7 @@
          <h3>Successfully Submitted!</h3>
       </div>
       <div class="summary">
-         <table class="table">
+         <table class="table text-center">
             <thead>
               <tr>
                 <th scope="col">iPhone 11 128GB Black</th>
@@ -155,7 +155,7 @@
    plusBtnPhone.addEventListener("click",function(){
       totalPhone++; 
       priceCounterPhone("noOfPhone","phonePrice");
-      priceCounterPhone("sumPhone","sumPhonePrice");
+      priceCounterPhone("sumPhone","sumPhonePrice"); // for showing in summary table
       billAmount();
    });
 
@@ -166,7 +166,7 @@
       else{
          totalPhone--;
          priceCounterPhone("noOfPhone","phonePrice");
-         priceCounterPhone("sumPhone","sumPhonePrice");
+         priceCounterPhone("sumPhone","sumPhonePrice"); // for showing in summary table
          billAmount();
       }
    });
@@ -176,7 +176,7 @@
    plusBtnCase.addEventListener("click",function(){
       totalCase++;
       priceCounterCase("noOfCase","casePrice");
-      priceCounterCase("sumCase","sumCasePrice");
+      priceCounterCase("sumCase","sumCasePrice"); // for showing in summary table
       billAmount();
 
    });
@@ -188,7 +188,7 @@
       else{
          totalCase--;
          priceCounterCase("noOfCase","casePrice");
-         priceCounterCase("sumCase","sumCasePrice");
+         priceCounterCase("sumCase","sumCasePrice"); // for showing in summary table
          billAmount();
       }
    });
@@ -201,7 +201,7 @@
 // showcase the total cost of phone
    function priceCounterPhone(id1,id2){
       document.getElementById(id1).value = totalPhone;      
-      document.getElementById(id1).innerText = totalPhone;      
+      document.getElementById(id1).innerText = totalPhone;  // for showing in summary table as extracted as innerText   
       var phoneCost = phonePrice*totalPhone;
       document.getElementById(id2).innerText=phoneCost;
       return phoneCost;
@@ -209,7 +209,7 @@
 // showcase the total cost of case
    function priceCounterCase(id1,id2){
       document.getElementById(id1).value = totalCase;
-      document.getElementById(id1).innerText = totalCase;
+      document.getElementById(id1).innerText = totalCase; // for showing in summary table as extracted as innerText   
 
       var caseCost = casePrice*totalCase;
       document.getElementById(id2).innerText=caseCost;
@@ -219,38 +219,36 @@
 //  this function is for the sub total, tax and grand total calculation
    function billAmount(){
          subTotal = priceCounterPhone("noOfPhone","phonePrice") + priceCounterCase("noOfCase","casePrice");
-         sumSubTotal = priceCounterPhone("sumPhone","sumPhonePrice") + priceCounterCase("sumCase","sumCasePrice");
+         sumSubTotal = priceCounterPhone("sumPhone","sumPhonePrice") + priceCounterCase("sumCase","sumCasePrice"); // for showing in summary table
 
          document.getElementById("subTotal").innerText =subTotal;
-         document.getElementById("sumSubTotal").innerText =sumSubTotal;
+         document.getElementById("sumSubTotal").innerText =sumSubTotal; // for showing in summary table
 
          var totalTax = subTotal * 0.075;
-         var sumTaxAdded = sumSubTotal * 0.075;
+         var sumTaxAdded = sumSubTotal * 0.075; // for showing in summary table
 
 
          document.getElementById("taxAdded").innerText =totalTax;
-         document.getElementById("sumTaxAdded").innerText =sumTaxAdded;
+         document.getElementById("sumTaxAdded").innerText =sumTaxAdded; // for showing in summary table
 
          var grandTotal = subTotal+totalTax;
-         var sumGrandTotal = sumSubTotal+sumTaxAdded;
+         var sumGrandTotal = sumSubTotal+sumTaxAdded; // for showing in summary table
 
          document.getElementById("grandTotal").innerText = grandTotal;
-         document.getElementById("sumGrandTotal").innerText = sumGrandTotal;
+         document.getElementById("sumGrandTotal").innerText = sumGrandTotal;// for showing in summary table
       
    }
-
-
-
+   
    // Checked out
-
 
    const checkoutBtn = document.getElementById("checkoutBtn");
 
    checkoutBtn.addEventListener("click",function(){
 
+      // hiding area
         const checkoutBtn = document.getElementById("invoice-area"); 
         checkoutBtn.style.display="none";
-    
+   //  showing area
         const transArea = document.getElementById("checked-out");
         transArea.style.display="block";       
     })
@@ -259,10 +257,8 @@
 // extracting values
    var sumPhone = parseInt(document.getElementById("sumPhone").innerText);
    var sumCase = parseInt(document.getElementById("sumCase").innerText);
-
    const sumPhonePrice = parseInt(document.getElementById("sumPhonePrice").innerText);
    const sumCasePrice = parseInt(document.getElementById("sumCasePrice").innerText);
-
     var sumTaxAdded = parseInt(document.getElementById("sumTaxAdded").innerText);
     var sumSubTotal = parseInt(document.getElementById("sumSubTotal").innerText);
     var sumGrandTotal = parseInt(document.getElementById("sumGrandTotal").innerText);
