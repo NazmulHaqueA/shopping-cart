@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        
+                        <div class="input-group number-spinner">
+
+                           <button class="btn btn-default" id="minusBtnPhone"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="noOfPhone" value="1">
+                           <button class="btn btn-default" id="plusBtnPhone"><i class="fas fa-plus"></i></button>
+                        </div>
+
+                        <h5>$ <span id="phonePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+   
+                           <button class="btn btn-default" id="minusBtnCase"><i class="fas fa-minus"></i></button>
+                           <input type="text" class="form-control text-center" id="noOfCase" value="1">
+                           <button class="btn btn-default" id="plusBtnCase"><i class="fas fa-plus"></i></button>
+                        </div>
+ 
+                        <h5>$ <span id="casePrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+
+               <!-- Final Pricing Part -->
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-7">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax (7.5%):</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-5 status">
+                        <h5>$ <span id="subTotal"> 1,278</span></h5>
+                        <h5>$ <span id="taxAdded"> 0</span></h5>
+                        <h5>$ <span id="grandTotal">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+
+<!-- JavaScript Codes -->
+
+<script>
+
+// input value extracted
+   var totalPhone = parseInt(document.getElementById("noOfPhone").value);
+   var totalCase = parseInt(document.getElementById("noOfCase").value);
+   const phonePrice = parseInt(document.getElementById("phonePrice").innerText);
+   const casePrice = parseInt(document.getElementById("casePrice").innerText);
+    var subTotal = parseInt(document.getElementById("subTotal").innerText);
+    var taxAdded = parseInt(document.getElementById("taxAdded").innerText);
+    var taxAdded = parseInt(document.getElementById("grandTotal").innerText);
+
+//buttons : phone + - 
+   const plusBtnPhone = document.getElementById("plusBtnPhone");
+   const minusBtnPhone = document.getElementById("minusBtnPhone");
+
+//buttons : Case + - 
+   const plusBtnCase = document.getElementById("plusBtnCase");
+   const minusBtnCase = document.getElementById("minusBtnCase");
+   
+// Event listener phone + -
+
+   plusBtnPhone.addEventListener("click",function(){
+      totalPhone++; 
+      priceCounterPhone("noOfPhone","phonePrice");
+      billAmount();
+   });
+
+   minusBtnPhone.addEventListener("click",function(){
+      if(totalPhone<=0){
+         alert("cannot be less than zero");
+      }
+      else{
+         totalPhone--;
+         priceCounterPhone("noOfPhone","phonePrice");
+         billAmount();
+      }
+   });
+
+// Event listener Case + -
+
+   plusBtnCase.addEventListener("click",function(){
+      totalCase++;
+      priceCounterCase("noOfCase","casePrice");
+      billAmount();
+
+   });
+
+   minusBtnCase.addEventListener("click",function(){
+      if(totalCase<=0){
+         alert("cannot be less than zero");
+      }
+      else{
+         totalCase--;
+         priceCounterCase("noOfCase","casePrice");
+         billAmount();
+      }
+   });
+
+
+
+
+// functions
+
+// showcase the total cost of phone
+   function priceCounterPhone(id1,id2){
+      document.getElementById(id1).value = totalPhone;
+      var phoneCost = phonePrice*totalPhone;
+      document.getElementById(id2).innerText=phoneCost;
+      return phoneCost;
+   }
+// showcase the total cost of case
+   function priceCounterCase(id1,id2){
+      document.getElementById(id1).value = totalCase;
+      var caseCost = casePrice*totalCase;
+      document.getElementById(id2).innerText=caseCost;
+      return caseCost;
+   }
+
+//  this function is for the sub total, tax and grand total calculation
+   function billAmount(){
+         subTotal = priceCounterPhone("noOfPhone","phonePrice") + priceCounterCase("noOfCase","casePrice");
+         document.getElementById("subTotal").innerText =subTotal;
+         var totalTax = subTotal * 0.075;
+         document.getElementById("taxAdded").innerText =totalTax;
+         var grandTotal = subTotal+totalTax;
+         document.getElementById("grandTotal").innerText = grandTotal;
+      
+   }
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+
+</html>
